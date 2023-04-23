@@ -1,0 +1,73 @@
+﻿@page
+@model ASPTest.Pages.Members.IndexModel
+@{
+    ViewData["Title"] = "Current Members";
+}
+
+
+
+
+
+<h2>List of Members</h2>
+<a class='btn btn-primary btn-sm' href='Create'>Add new Member</a>
+<br><br>
+<table class="table table-hover" style="width:90%">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+
+
+        @foreach (var item in Model.ListMembers)
+        {
+            <tr>
+                <td>@item.ID</td>
+                <td>@item.Name</td>
+                <td>@item.Age</td>
+                <td style="width:50%">
+
+                    <span id="confirmDeleteSpan_@item.ID" style="display:none">
+
+                        <a class="btn btn-danger" href="Delete?id=@item.ID">Yes</a>
+                        <a href="" class="btn btn-primary" onclick="confirmDelete('@item.ID', false)">No</a>
+                        Are you sure you want to delete?
+                    </span>
+
+                    <span id="deleteSpan_@item.ID">
+                        <a href="#" class="btn btn-danger" onclick="confirmDelete('@item.ID', true)">Delete</a>
+                        <a class="btn btn-primary btn sm" href="Edit?id=@item.ID">Edit</a>
+                    </span>
+                    
+                </td>
+            </tr>
+        }
+
+
+    <tr>
+        <td>
+            @Model.errorMessage
+        </td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+          
+
+        
+
+
+    </tbody>
+
+
+</table>
+
+@section Scripts {
+    <script src="~/js/CustomScript.js"></script>
+}

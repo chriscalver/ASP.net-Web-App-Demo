@@ -1,0 +1,52 @@
+﻿@page
+@using System.Data.SqlClient;
+
+
+
+@{
+
+    String errorMessage = "";
+
+    try {
+
+
+
+        String ID = Request.Query["ID"];
+
+        String connectionString = ASPTest.Startup.Variables.tester;
+
+        using (SqlConnection connection = new SqlConnection(connectionString))
+        {
+
+            connection.Open();
+
+            String sql = "DELETE FROM Table_3 WHERE ID=@ID";
+
+            using (SqlCommand command = new SqlCommand(sql, connection))
+            {
+
+                command.Parameters.AddWithValue("@ID", ID);
+
+
+                command.ExecuteNonQuery();
+
+
+
+
+            }
+
+
+
+        }
+
+
+    }
+    catch (Exception ex)
+    {
+        errorMessage = ex.Message;
+        return;
+    }
+
+    Response.Redirect("/projects/aspwebapp/Members/Index");
+}
+
